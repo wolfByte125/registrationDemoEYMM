@@ -1,28 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  alert('Registered Successfully!');
-}
+import { useState } from 'react';
 
 function App() {
+
+// VARIABLE WITH HTML CONTENT
+  const heading = <h3 id="title">REGISTRATION</h3>;
+  
+// USER STATE INITIALIZATION
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: ''
+  });
+
+// HANDLES INPUT FIELD DATA
+  const handleInput = (e) => {
+    setUser({  ...user, [e.target.name]: e.target.value });
+  }
+
+// HANDLES SUBMISSION OF FORM
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(user.firstName + " " + user.lastName + " has been registered successfully!");
+    console.log(user.firstName + " " + user.lastName);
+  }
+
   return (
     <div className="App">
       <div className="container">
-        <h3 id="title">REGISTRATION</h3>
+        { heading }
         <form action="#" method="post" onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="username">
-            Username
-          </label>
-          <input type="text" id="username" name="username" />
-          <label htmlFor="password">
-            Password
-          </label>
-          <input type="password" id="password" name="password" />
+          <input type="text" id="firstName" name="firstName" placeholder="First Name" onChange={handleInput} required />
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name" onChange={handleInput} required />
           <button id="registerBtn">Register</button>
-          </form>
-        </div>
+        </form>
+      </div>
     </div>
   );
 }
